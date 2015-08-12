@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# clone a file into the dotfiles topic dir.
+
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)/the_files	# ar: place dotfiles in subdir
+
+set -e
+
+echo ''
+
+info () {
+    printf "  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+    printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
+    exit
+}
+
+usage () {
+    echo "Usage: $(basename "$0") <dot file/dir> <topic dir>"
+    echo ''
+    exit
+}
+
+
+clone_file () {
+    local src=${1%/}		# remove possible trailing slash
+
+    [ -f "$src" -o -d "$src" ] || fail "Source file or directory does not exist: $src"
+    local topic_dir=$DOTFILES_ROOT/$2
+    [ -d "$topic_dir" ] || fail "Topic dir does not exist: $topic_dir"
+    
+    local file_name=$(basename "$src")
+    local dst=$topic_dir/${file_name:1}.symlink
+
+    [ -d "$src" ] && src="${src}/" # add trailing slash if src is a dir
+
+    if rsync -va $src $dst
+    then
+	success "Copied $src ==> $dst"
+    else
+	failed "Failed to copy $src ==> $dst"
+    fi    
+}
+
+
+[[ $# -ne 2 ]] && usage
+
+clone_file $1 $2
