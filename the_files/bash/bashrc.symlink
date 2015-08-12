@@ -2,112 +2,149 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# Files you make look like rw-rw-r
+umask 002
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# Don't make useless coredump files.  If you want a coredump,
+# say "ulimit -c unlimited" and then cause a segmentation fault.
+ulimit -Sc 0
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# Function to help us manage paths
+pathman () {
+   if ! echo $PATH | /bin/grep -q "(^|:)$1($|:)" ; then
+      if [ "$2" = "last" ] ; then
+         PATH=$PATH:$1
+      else
+         PATH=$1:$PATH
+      fi
+   fi
+}
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+if [ -d ~/bin ] ; then
+        pathman ~/bin
+fi
 
+if [ -d ~/scripts ] ; then
+        pathman ~/scripts
+fi
+
+if [ -d ~/django_sites/scripts ] ; then
+        pathman ~/django_sites/scripts last
+fi
+
+export TARABUT_HOME=~/django_sites/tarabut
+if [ -f $TARABUT_HOME/tarabut/scripts/tr_bashrc ]; then
+    . $TARABUT_HOME/tarabut/scripts/tr_bashrc
+fi
+
+# django completion
+if [ -f /usr/local/django/django_src/extras/django_bash_completion ]; then
+    . /usr/local/django/django_src/extras/django_bash_completion
+fi
+
+if [ -f /etc/bash_completion ]; then
+    complete -o default -o nospace -F _git mygit
+fi
+
+# help less display various binary files
+if [ -x /usr/bin/lesspipe ]; then
+    eval "$(lesspipe)"
+elif [ -x /usr/bin/lesspipe.sh ]; then
+    eval "$(lesspipe.sh)"
+fi
+
+PYTHONSTARTUP=/home/amit/.pythonrc
+export PYTHONSTARTUP
+
+
+# disable flow control (Control-S/Control-Q)
+# the redirection prevents some error messages
+# when logging via ssh.
+stty start '^-' 2>/dev/null
+stty stop '^-' 2>/dev/null
+
+
+# If not running interactively, then return
+if [ -z "$PS1" ]; then
+	return
+fi
+
+# Set ignoreeof if you don't want EOF as the sole input to the shell to
+# immediately signal a quit condition.  This only happens at the start
+# of a line if the line is empty, and you haven't just deleted a character
+# with C-d.  I turn this on in ~/.bash_profile so that only login shells
+# have the right to be obnoxious.
+# set -o ignoreeof
+
+# Set auto_resume if you want to resume on "emacs", as well as on
+# "%emacs".
+auto_resume=exact
+
+# Set notify if you want to be asynchronously notified about background
+# job completion.
+set -o notify
+
+set -o noclobber
+
+# Make it so that failed `exec' commands don't flush this shell.
+shopt -s execfail
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+# required to allow cd completion of environment variables
+shopt -s cdable_vars
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+MAILCHECK=60
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+
+# Set up cd search paths:
+CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
+export CDPATH
+
+# Set up the shell variables:
+EDITOR=$HOME/scripts/ec
+export EDITOR
+
+# tweak locale definition -
+# make messages and time appear in english
+export LC_MESSAGES=C
+export LC_TIME=C
+
+# Setup history environment variables.
+HISTCONTROL="ignoreboth"
+HISTSIZE=4000
+HISTFILESIZE=4000
+HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
+HISTTIMEFORMAT="%F %T "
+
+export LINES COLUMNS
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+
+# select grep color
+export GREP_COLOR="1;33"
+
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+xterm*|rxvt*|mlterm*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
     ;;
 *)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
 
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
-fi
+# End ~/.bashrc
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
