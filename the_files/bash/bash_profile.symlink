@@ -1,13 +1,35 @@
+# -*-shell-script-*-
 # ~/.profile: executed by Bourne-compatible login shells.
 
-if [ -f /etc/bash.bashrc ]; then
-  . /etc/bash.bashrc
+MAILCHECK=60
+PATH=~/bin:~/scripts:$PATH
+if [ -d ~/django_sites/scripts ] ; then
+    PATH=$PATH:~/django_sites/scripts
 fi
+CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
+EDITOR=$HOME/scripts/ec-nw
+VISUAL=$HOME/scripts/ec-nw
+FCEDIT=$HOME/scripts/ec-nw
+SHELL=${SHELL:-${BASH:-/bin/bash}}
 
-if [ -f ~/.bashrc ]; then
+# Setup history environment variables.
+# HISTFILE=~/.history/history.$HOSTNAME
+HISTCONTROL="ignoreboth"
+HISTSIZE=4000
+HISTFILESIZE=4000
+HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
+HISTTIMEFORMAT="%F %T "
+
+# select grep color
+GREP_COLOR="1;33"
+
+export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR SHELL
+export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
+export LINES COLUMNS
+
+if [ -r ~/.bashrc ]; then
   . ~/.bashrc
 fi
-
 
 if [ "$TERM" != "cygwin" ];
     then mesg n;

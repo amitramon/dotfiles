@@ -1,3 +1,4 @@
+# -*-shell-script-*-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -9,41 +10,14 @@ umask 002
 # say "ulimit -c unlimited" and then cause a segmentation fault.
 ulimit -Sc 0
 
-# Function to help us manage paths
-pathman () {
-   if ! echo $PATH | /bin/grep -q "(^|:)$1($|:)" ; then
-      if [ "$2" = "last" ] ; then
-         PATH=$PATH:$1
-      else
-         PATH=$1:$PATH
-      fi
-   fi
-}
-
-if [ -d ~/bin ] ; then
-        pathman ~/bin
-fi
-
-if [ -d ~/scripts ] ; then
-        pathman ~/scripts
-fi
-
-if [ -d ~/django_sites/scripts ] ; then
-        pathman ~/django_sites/scripts last
-fi
-
-export TARABUT_HOME=~/django_sites/tarabut
-if [ -f $TARABUT_HOME/tarabut/scripts/tr_bashrc ]; then
-    . $TARABUT_HOME/tarabut/scripts/tr_bashrc
+# If not running interactively, then return
+if [ -z "$PS1" ]; then
+	return
 fi
 
 # django completion
 if [ -f /usr/local/django/django_src/extras/django_bash_completion ]; then
     . /usr/local/django/django_src/extras/django_bash_completion
-fi
-
-if [ -f /etc/bash_completion ]; then
-    complete -o default -o nospace -F _git mygit
 fi
 
 # help less display various binary files
@@ -53,21 +27,11 @@ elif [ -x /usr/bin/lesspipe.sh ]; then
     eval "$(lesspipe.sh)"
 fi
 
-PYTHONSTARTUP=/home/amit/.pythonrc
-export PYTHONSTARTUP
-
-
 # disable flow control (Control-S/Control-Q)
 # the redirection prevents some error messages
 # when logging via ssh.
 stty start '^-' 2>/dev/null
 stty stop '^-' 2>/dev/null
-
-
-# If not running interactively, then return
-if [ -z "$PS1" ]; then
-	return
-fi
 
 # Set ignoreeof if you don't want EOF as the sole input to the shell to
 # immediately signal a quit condition.  This only happens at the start
@@ -94,42 +58,11 @@ shopt -s checkwinsize
 # required to allow cd completion of environment variables
 shopt -s cdable_vars
 
-MAILCHECK=60
-
-
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
-
-# Set up cd search paths:
-CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
-export CDPATH
-
-# Set up the shell variables:
-EDITOR=$HOME/scripts/ec
-export EDITOR
-
-# tweak locale definition -
-# make messages and time appear in english
-export LC_MESSAGES=C
-export LC_TIME=C
-
-# Setup history environment variables.
-HISTCONTROL="ignoreboth"
-HISTSIZE=4000
-HISTFILESIZE=4000
-HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
-HISTTIMEFORMAT="%F %T "
-
-export LINES COLUMNS
-
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
 fi
-
-# select grep color
-export GREP_COLOR="1;33"
-
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
@@ -145,6 +78,6 @@ xterm*|rxvt*|mlterm*)
     ;;
 esac
 
+[ -r ~/.bash_aliases ] && . ~/.bash_aliases
 
-# End ~/.bashrc
 
