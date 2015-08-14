@@ -1,0 +1,14 @@
+# AR UTF-8 (Unicode) compose sequence
+
+include "%S/en_US.UTF-8/Compose"
+
+# Part 0 - Amit's definitions
+
+<Multi_key> <minus> <apostrophe> 	: "׳"   U05f3  # HEBREW PUNCTUATION GERESH
+<Multi_key> <minus> <quotedbl> 		: "״"   U05f4  # HEBREW PUNCTUATION GERSHAYIM
+<Multi_key> <minus> <t> 		: "☎"   U260e  # Telephone
+<Multi_key> <minus> <e> 		: "✉"   U2709  # Envelope
+
+# a silly example: working, but I don't have a minus sign...
+# <minus> <space>	    			: "#"   numbersign # NUMBER SIGN
+

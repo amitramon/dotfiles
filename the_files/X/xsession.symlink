@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# ~/.xsession
+#
+# Note: Executed by startx only if .xinitrc does not exist.
+# More details: if .xinitrc exists, it is executed. If not, the system xinitrc
+# is executed, which invokes system Xsession file, which, in turn, invokes this
+# file -t the user's .xsession file.
+# If using .xinitrc instead, note that the system Xsession file will not be called
+# and some tasks that are done by it will not be done.
+
+#. $HOME/.bash_profile
+
+# Debian: done by script in /etc/X11/Xsession.d/
+# xrdb -merge $HOME/.Xresources
+
+# Debian: done by script in /etc/X11/Xsession.d/
+#unclutter -root &
+
+# handled by kblo (below)
+### xmodmap $HOME/.Xmodmap
+
+# xsetroot -solid green &
+# (sleep 5; conky) &
+
+
+
+# LC_TIME=C LC_MESSAGES=C xterm -e screen &
+
+# will now run emacs as a daemon
+# emacs -f my-server-start &
+
+# xclock &
+# cairo-clock -x 20 -y 20 -s -i -e -r 1 -w 240 -g 240 &
+# gnubiff --systemtray -n &
+
+###tilda &
+# icewmbg &
+# exec icewm-session
+#xterm &
+#exec startkde
+
+xbindkeys
+xscreensaver -nosplash &
+
+xterm &
+mlterm &
+# psensor &
+gkrellm &
+keepassx &
+tomboy &
+wicd-gtk &
+# xpad &
+xfce4-power-manager
+kblo 5
+
+### exec xfce4-session
+# exec gnome-session
+
+# exec twm
+# the ck-launch-session prefix grant policy permissions to the session
+### exec ck-launch-session awesome
+exec awesome
+# exec ck-launch-session startxfce4
+## exec gnome-session
+## exec kde4
+# exec fvwm
+
+
+
+
