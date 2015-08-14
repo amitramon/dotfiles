@@ -1,0 +1,23 @@
+#set completion-ignore-case On
+set editing-mode emacs
+
+
+# okay
+"\C-x\C-b": kill-whole-line
+# binding F6 - okay
+### "\e[17~": kill-whole-line
+"\C-x\C-c": vi-bword
+
+# Some examples
+# bind F2 to readline command - okay
+### "\eOQ": kill-whole-line
+# bind F3 to a string containing a command to run xclock - okay
+### "\eOR": "xclock&"
+
+
+
+
+
+
+
+

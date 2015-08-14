@@ -5,8 +5,6 @@
 
 alias mygit='git --git-dir=$HOME/.myconfig.git/ --work-tree=$HOME'
 
-alias א='setxkbmap us'
-
 alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
 
 alias j="jobs -l"
@@ -19,10 +17,17 @@ alias ll='ls -l'
 alias llf='ls -lF'
 alias lsf='ls -F'
 alias la='ls -a'
+alias dot='ls -d .[a-zA-Z0-9_]*'
+
+# dot ()
+# {
+#     ls -d $1/.[a-zA-Z0-9_]*
+# }
 
 alias c='clear;date'
 alias a=alias
 
+# alias h='history'
 alias h='fc -l' #history
 alias r='fc -s'
 
@@ -435,3 +440,4 @@ function =()
 {
     echo "${1}"|wcalc;
 }
+
