@@ -1,0 +1,67 @@
+*
+
+!.emacs.d/
+!.emacs.d/**/*
+
+.emacs.d/elpa
+.emacs.d/session*
+
+# .emacs.d/*
+# !.emacs.d/lisp
+# !.emacs.d/lisp/*
+# !.emacs.d/site-lisp
+# !.emacs.d/site-lisp/**/*
+
+!.mlterm/
+!.mlterm/**/*
+
+!.mutt/
+!.mutt/**/*
+
+
+# !./scripts/**/*
+# !.XCompose
+# !.Xdefaults
+# !.Xmodmap
+# !.Xresources
+# !.abook
+# !.bash_aliases
+# !.bash_logout
+# !.bash_profile
+# !.bashrc
+# !.bzrignore
+# !.conkyrc
+# !.emacs
+# !.emacs.d/**/*
+# !.geresh
+# !.getmail
+# !.icewm
+# !.inputrc
+# !.lessfilter
+# !.lyx
+# !.mailfilter
+# !.mairixrc
+# !.mlterm/**/*
+# !.msmtprc
+# !.mutt/**/*
+# !.muttprintrc
+# !.my.cnf
+# !.offlineimaprc
+# !.profile
+# !.pythonrc
+# !.screenrc
+# !.signature
+# !.signature_save
+# !.subversion
+# !.tidy
+# !.xbindkeysrc
+# !.xinitrc
+!.xsession
+# 
+
+*.elc
+*~
+*#
+*lock
+*log
+*.svn

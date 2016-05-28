@@ -1,0 +1,38 @@
+[user]
+	name = Amit Ramon
+	email = amit@riseup.net
+[core]
+	safecrlf = true
+	autocrlf = input
+	excludesfile = /home/amit/.gitignore-global
+[push]
+	default = simple
+[alias]
+
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+lg7 = log --graph --color --all --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+
+lgg = log --graph \
+--format=format:'%C(blue)%h%C(reset) \
+%C(green)[%ar]%C(reset) %C(white)%s%C(reset) \
+%C(yellow)%d%C(reset)'
+
+lgg = log --graph \
+--format=format:'%C(blue)%h%C(reset) \
+%C(green)[%ar]%C(reset) %C(white)%s%C(reset) \
+%d'
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[color "decorate"]
+#    branch = cyan
+#    remoteBranch = green
+#    tag = blue
+#    stash = white
+#    HEAD = bold magenta
