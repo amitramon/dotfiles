@@ -81,3 +81,11 @@ esac
 [ -r ~/.bash_aliases ] && . ~/.bash_aliases
 
 
+D_DICT_CMD=dict
+# D_XTERM_TITLE="Dict_Lookup"
+# D_TEXT_WIDTH=300
+D_TERM_X=+20
+D_TERM_Y=+20
+D_TERM_H=+45
+
+export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H

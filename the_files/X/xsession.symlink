@@ -44,27 +44,31 @@ xbindkeys
 xscreensaver -nosplash &
 
 xterm &
-mlterm &
+mlterm --name=Mail --geometry 100x35+20+20 &
 # psensor &
-gkrellm &
-keepassx &
+# gkrellm &
+
+# keepassx &
+
 tomboy &
-wicd-gtk &
+# wicd-gtk &
 # xpad &
-xfce4-power-manager
+# xfce4-power-manager
 kblo 5
 
-### exec xfce4-session
+exec xfce4-session
+#exec enlightenment_start
 # exec gnome-session
 
 # exec twm
 # the ck-launch-session prefix grant policy permissions to the session
 ### exec ck-launch-session awesome
-exec awesome
+## >> exec awesome
 # exec ck-launch-session startxfce4
 ## exec gnome-session
 ## exec kde4
-# exec fvwm
+# exec fvwm-crystal
+
 
 
 

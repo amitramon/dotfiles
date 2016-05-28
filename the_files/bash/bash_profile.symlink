@@ -14,11 +14,12 @@ SHELL=${SHELL:-${BASH:-/bin/bash}}
 
 # Setup history environment variables.
 # HISTFILE=~/.history/history.$HOSTNAME
-HISTCONTROL="ignoreboth"
+HISTCONTROL="ignoreboth:erasedups"
 HISTSIZE=4000
 HISTFILESIZE=4000
 HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
 HISTTIMEFORMAT="%F %T "
+shopt -s histappend
 
 # select grep color
 GREP_COLOR="1;33"

@@ -62,7 +62,26 @@ alias xt='xterm -bg black -fg wheat -geometry 80x32+150+50  &'
 alias zombie='ps ex | awk "\$3==\"Z\"{print \$1, \$5}"'
 
 
-alias ffdev='MOZ_NO_REMOTE=1 firefox -P amit-dev >/dev/null 2>&1 &'
+alias ffdev='firefox --no-remote -P amit-dev >/dev/null 2>&1 &'
+
+dropbox-hila()
+{
+    (
+	local HOME=~/.dropboxes/hila
+	cd $HOME/Dropbox
+	dropbox.py $@ # start -i
+    )
+}
+
+dropbox-amit()
+{
+    (
+	local HOME=~/.dropboxes/amit
+    	cd $HOME/Dropbox
+	dropbox.py $@ # start -i
+    )
+}
+
 
 ff ()
 {
@@ -75,6 +94,10 @@ less ()
    /usr/bin/less -R $@
 }
 
+envof ()
+{
+    sed 's:\x0:\n:g' /proc/${1}/environ | sort
+}
 
 # help man display characters correctly
 man ()
