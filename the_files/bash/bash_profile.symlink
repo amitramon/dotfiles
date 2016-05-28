@@ -36,5 +36,7 @@ if [ "$TERM" != "cygwin" ];
     then mesg n;
 fi
 
-eval $(keychain --agents ssh --eval --quiet id_rsa)
+[ -x /usr/bin/keychain -o -x /usr/local/bin/keychain ] && \
+    eval $(keychain --agents ssh --eval --quiet id_rsa)
+
 
