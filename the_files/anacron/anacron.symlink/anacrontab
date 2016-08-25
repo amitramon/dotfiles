@@ -1,0 +1,14 @@
+# $HOME/.anacron/anacrontab: configuration file for anacron
+
+# See anacron(8) and anacrontab(5) for details.
+
+SHELL=/bin/sh
+HOME=/home/amit
+PATH=$HOME/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+
+# These replace cron's entries
+1 2 amit.straydoc nice $HOME/bin/straydoc -s
+1 5 amit.daily nice run-parts --report $HOME/.anacron/cron.daily
+7 10 amit.weekly nice run-parts --report $HOME/.anacron/cron.weekly
+31 20 amit.monthly nice run-parts --report $HOME/.anacron/cron.monthly

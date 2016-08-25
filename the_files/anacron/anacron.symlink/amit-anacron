@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Run anacron for an ordinary user.
+#
+# Schedule this script to run daily by the system's anacron service.
+# On a Debian system, for example, it could be placed in /etc/cron.daily
+
+USER=amit
+HOME=/home/$USER
+
+su $USER -c "/usr/sbin/anacron -t ${HOME}/.anacron/anacrontab -S ${HOME}/.anacron/timestamps"
+
