@@ -16,6 +16,7 @@ Xft.rgba: rgb
 
 !---------------------------------------------------------------------------
 XTerm*utf8:   1
+XTerm*utf8Title:   1
 ! XTerm*VT100*font:      -misc-fixed-medium-r-normal--18-120-100-100-c-90-iso10646-1
 ! ar: tmp
 !!!XTerm*VT100*font:   -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
@@ -38,22 +39,25 @@ XTerm*utf8:   1
 ! These are the 8 ANSI colors and their bright equivalents.  Depending on
 ! other resource settings, XTerm may use the bright colors when displaying
 ! bold text (see the boldColors resource).
-XTerm*VT100*color0: gray15
-XTerm*VT100*color1: red3
-XTerm*VT100*color2: green3
-XTerm*VT100*color3: yellow1
-XTerm*VT100*color4: SteelBlue1
-XTerm*VT100*color5: magenta3
-XTerm*VT100*color6: cyan3
-XTerm*VT100*color7: gray90
-XTerm*VT100*color8: gray50
-XTerm*VT100*color9: red
-XTerm*VT100*color10: green
-XTerm*VT100*color11: yellow
-XTerm*VT100*color12: rgb:5c/5c/ff
-XTerm*VT100*color13: magenta
-XTerm*VT100*color14: cyan
-XTerm*VT100*color15: white
+! XTerm*VT100*color0: gray15
+! XTerm*VT100*color1: red3
+! XTerm*VT100*color2: green3
+! XTerm*VT100*color3: yellow1
+! XTerm*VT100*color4: SteelBlue1
+! XTerm*VT100*color5: magenta3
+! XTerm*VT100*color6: cyan3
+! XTerm*VT100*color7: gray90
+! XTerm*VT100*color8: gray50
+! XTerm*VT100*color9: red
+! XTerm*VT100*color10: green
+! XTerm*VT100*color11: yellow
+! XTerm*VT100*color12: rgb:5c/5c/ff
+! XTerm*VT100*color13: magenta
+! XTerm*VT100*color14: cyan
+! XTerm*VT100*color15: white
+
+
+
 
 
 XTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
@@ -79,7 +83,7 @@ MlTerm.termName: mlterm-256color
 !       original dealund settings commented out by me. Comments marked with
 !       ar are mine too.
 
-XTerm*VT100*geometry: 90x45+110+15
+XTerm*VT100*geometry: 90x45+110+100
 XTerm*VT100*font:   -misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1
 XTerm*VT100*wideFont:  -misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1
 XTerm*VT100*boldFont:  -misc-fixed-bold-r-normal--18-120-100-100-c-90-iso10646-1
@@ -141,12 +145,25 @@ XTerm*jumpScroll: true
 XTerm*visualBell: true
 
 !!! colors
-XTerm*cursorColor: green
 XTerm*colorBD: green
 XTerm*colorBDMode: true
 XTerm*colorUL: aquamarine
 XTerm*colorULMode: true
 XTerm*highlightColor: royalblue1
+XTerm*pointerColor: yellow
+XTerm*pointerColorBackground: red
+XTerm*cursorColor: yellow
+! XTerm*cursorBlink: true
+
+
+
+
+
+
+
+
+
+
 
 !!! gradient backgrounds
 ! XTerm*mainMenu*foreground: yellow
@@ -302,3 +319,4 @@ XClock*minorColor: blue
  *color14:    rgb:71/be/be
  *color15:    rgb:ff/ff/ff
 
+! XTerm*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-*

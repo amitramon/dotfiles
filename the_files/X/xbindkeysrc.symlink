@@ -46,5 +46,10 @@
     m:0x50 + c:43
     Mod2+Mod4 + d 
 
+#Remark
+"gtranslate"
+    m:0x50 + c:45
+    Mod2+Mod4 + t 
+
 #
 # End of xbindkeys configuration

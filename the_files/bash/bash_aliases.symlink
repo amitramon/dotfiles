@@ -464,3 +464,12 @@ function =()
     echo "${1}"|wcalc;
 }
 
+function apt-safe()
+{
+    sudo aptitude update && sudo aptitude $@ safe-upgrade
+}
+
+function apt-full()
+{
+    sudo aptitude $@ full-upgrade
+}

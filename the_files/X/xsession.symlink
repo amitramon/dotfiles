@@ -44,7 +44,7 @@ xbindkeys
 xscreensaver -nosplash &
 
 xterm &
-mlterm --name=Mail --geometry 100x35+20+20 &
+mlterm --name=Mail --geometry 100x35+20+100 &
 # psensor &
 # gkrellm &
 
