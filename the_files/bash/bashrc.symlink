@@ -16,7 +16,7 @@ if [ -z "$PS1" ]; then
 fi
 
 # django completion
-if [ -f /usr/local/django/django_src/extras/django_bash_completion ]; then
+if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
     . /usr/local/django/django_src/extras/django_bash_completion
 fi
 
@@ -27,11 +27,13 @@ elif [ -x /usr/bin/lesspipe.sh ]; then
     eval "$(lesspipe.sh)"
 fi
 
-# disable flow control (Control-S/Control-Q)
-# the redirection prevents some error messages
-# when logging via ssh.
-stty start '^-' 2>/dev/null
-stty stop '^-' 2>/dev/null
+if [ -t 0 ]; then       # check for a terminal, per https://wiki.debian.org/DotFiles
+    # disable flow control (Control-S/Control-Q)
+    # the redirection prevents some error messages
+    # when logging via ssh.
+    stty start '^-' 2>/dev/null
+    stty stop '^-' 2>/dev/null
+fi
 
 # Set ignoreeof if you don't want EOF as the sole input to the shell to
 # immediately signal a quit condition.  This only happens at the start
@@ -78,9 +80,45 @@ xterm*|rxvt*|mlterm*)
     ;;
 esac
 
-[ -r ~/.bash_aliases ] && . ~/.bash_aliases
+# source optional settings
+if [ -d ~/.bashrc.d ]; then
+  for i in ~/.bashrc.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
 
+CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
+EDITOR=$HOME/scripts/ec-nw
+VISUAL=$HOME/scripts/ec-nw
+FCEDIT=$HOME/scripts/ec-nw
 
+# Setup history environment variables.
+# HISTFILE=~/.history/history.$HOSTNAME
+HISTCONTROL="ignoreboth:erasedups"
+HISTSIZE=4000
+HISTFILESIZE=4000
+HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
+HISTTIMEFORMAT="%F %T "
+shopt -s histappend
+
+# select grep color
+GREP_COLOR="1;33"
+
+export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR
+export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
+export LINES COLUMNS
+
+# force input method to XIM in order for
+# "old" XCompose to work (intead of scim)
+GTK_IM_MODULE="xim" # "scim"
+QT_IM_MODULE="xim" # "scim"
+export XMODIFIERS="@im=none"	# not sure about it
+export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+
+# variables for dict_lookup script
 D_DICT_CMD=dict
 # D_XTERM_TITLE="Dict_Lookup"
 # D_TEXT_WIDTH=300

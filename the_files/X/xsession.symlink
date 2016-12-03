@@ -9,7 +9,8 @@
 # If using .xinitrc instead, note that the system Xsession file will not be called
 # and some tasks that are done by it will not be done.
 
-#. $HOME/.bash_profile
+[ -r /etc/profile ] && . /etc/profile
+[ -r ~/.bash_profile ] && . ~/.bash_profile
 
 # Debian: done by script in /etc/X11/Xsession.d/
 # xrdb -merge $HOME/.Xresources
@@ -54,9 +55,9 @@ tomboy &
 # wicd-gtk &
 # xpad &
 # xfce4-power-manager
-kblo 5
+set-lang -l 5
 
-exec xfce4-session
+exec startxfce4 # xfce4-session
 #exec enlightenment_start
 # exec gnome-session
 

@@ -1,0 +1,26 @@
+# -*-shell-script-*-
+# ~/.profile: executed by Bourne-compatible login shells.
+
+# Function to help us manage paths
+add_to_path()
+{
+    if [ -d "$1" ] ; then
+	if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+	    if [ "$2" = "last" ] ; then
+		PATH=$PATH:$1
+	    else
+		PATH=$1:$PATH
+	    fi
+	fi
+    fi
+}
+
+add_to_path /usr/local/scripts
+add_to_path ~/scripts
+add_to_path ~/bin
+add_to_path ~/django_sites/scripts last
+
+MAILCHECK=60
+
+# [ -x /usr/bin/keychain -o -x /usr/local/bin/keychain ] && \
+#     eval $(keychain --agents ssh --eval --quiet id_rsa)

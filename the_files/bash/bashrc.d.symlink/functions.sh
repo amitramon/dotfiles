@@ -1,69 +1,3 @@
-# -*- shell-script -*-
-# Some useful aliases.
-
-# alias tmux='TERM=xterm-256color tmux'
-
-alias mygit='git --git-dir=$HOME/.myconfig.git/ --work-tree=$HOME'
-
-alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
-
-alias j="jobs -l"
-
-#alias la='ls -A'
-#alias l='ls -CF'
-
-alias l='ls -l'
-alias ll='ls -l'
-alias llf='ls -lF'
-alias lsf='ls -F'
-alias la='ls -a'
-alias dot='ls -d .[a-zA-Z0-9_]*'
-
-# dot ()
-# {
-#     ls -d $1/.[a-zA-Z0-9_]*
-# }
-
-alias c='clear;date'
-alias a=alias
-
-# alias h='history'
-alias h='fc -l' #history
-alias r='fc -s'
-
-alias x=exit
-
-alias pd='cd $OLDPWD'
-alias pu="pushd"
-alias po="popd"
-
-alias ..='cd ..'
-alias cd..='cd ..'
-alias lfo=list_files_only
-alias lsd='ls -d */'
-
-alias e='run_emacs'
-alias e24='run_emacs24'
-alias enw='/usr/bin/emacs -nw'
-alias e24nw='~/src/emacs/emacs-build/src/emacs -nw --no-desktop --no-splash'
-alias e2nw='/usr/local/bin/emacs --no-splash -nw'
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias mkdir='mkdir -p'
-
-alias grep='grep --color=auto'
-
-alias rt='xterm -bg black -fg wheat -geometry 80x32+150+50 -e "sux -" &'
-alias xt='xterm -bg black -fg wheat -geometry 80x32+150+50  &'
-
-
-alias zombie='ps ex | awk "\$3==\"Z\"{print \$1, \$5}"'
-
-
-alias ffdev='firefox --no-remote -P amit-dev >/dev/null 2>&1 &'
-
 dropbox-hila()
 {
     (
@@ -157,34 +91,6 @@ function hlp()
     $1 --help
 }
 
-function run_emacs()
-{
-    # use debian emacs (21.4)
-    local e
-    e=/usr/bin/emacs
-    o="--no-splash"
-
-    if [ "$TERM" == "linux" ]; then
-	$e $o -nw $*
-    else
-        $e $o -g 90x45+80+10 $* &
-    fi
-}
-
-function run_emacs24()
-{
-    local e
-    e=/home/amit/src/emacs/emacs-build/src/emacs
-    o="--no-desktop --no-splash"
-
-    if [ "$TERM" == "linux" ]; then
-	$e $o -nw $*
-    else
-        $e $o -g 90x45+80+10 $* &
-    fi
-}
-
-
 function clean_dir()
 {
 	echo -n "Really clean this directory? ";
@@ -205,8 +111,6 @@ function disk_free()
 	END{print "------------------------------------------------"; \
 	print "total:                                   " sum}'
 }
-
-
 
 function list_files_only()
 {
@@ -326,23 +230,6 @@ function setenv()
 # }
 
 
-#
-# change PAGER to most to have colored man
-#
-# commented out: as of now (10/06) most does not
-# display man paged properly
-#
-#function man ()
-#{
-#	PAGER=most /usr/bin/man $@
-#}
-
-
-
-alias py='/home/amit/python/python-2.4.2/bin/python2.4'
-
-alias quickweb='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
-
 
 # * Finding the source revision of a tag:
 # svn log -v -q --stop-on-copy \
@@ -427,8 +314,6 @@ function d()
     dict $@ | colorit | less
 }
 
-# End ~/.bash_aliases
-
 
 function pdfreducesize()
 {
@@ -458,19 +343,7 @@ function amr-to-mp3()
 }
 
 
-
-
 function =()
 {
     echo "${1}"|wcalc;
-}
-
-function apt-safe()
-{
-    sudo aptitude update && sudo aptitude $@ safe-upgrade
-}
-
-function apt-full()
-{
-    sudo aptitude $@ full-upgrade
 }

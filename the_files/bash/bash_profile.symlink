@@ -1,42 +1,16 @@
 # -*-shell-script-*-
-# ~/.profile: executed by Bourne-compatible login shells.
+# ~/.bash_profile: executed by Bash login shell.
 
-MAILCHECK=60
-PATH=~/bin:~/scripts:$PATH
-if [ -d ~/django_sites/scripts ] ; then
-    PATH=$PATH:~/django_sites/scripts
-fi
-CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
-EDITOR=$HOME/scripts/ec-nw
-VISUAL=$HOME/scripts/ec-nw
-FCEDIT=$HOME/scripts/ec-nw
-SHELL=${SHELL:-${BASH:-/bin/bash}}
-
-# Setup history environment variables.
-# HISTFILE=~/.history/history.$HOSTNAME
-HISTCONTROL="ignoreboth:erasedups"
-HISTSIZE=4000
-HISTFILESIZE=4000
-HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
-HISTTIMEFORMAT="%F %T "
-shopt -s histappend
-
-# select grep color
-GREP_COLOR="1;33"
-
-export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR SHELL
-export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
-export LINES COLUMNS
-
-if [ -r ~/.bashrc ]; then
-  . ~/.bashrc
+if [ -r ~/.profile ]; then
+    . ~/.profile;
 fi
 
-if [ "$TERM" != "cygwin" ];
-    then mesg n;
-fi
+# export SHELL=${SHELL:-${BASH:-/bin/bash}}
 
-[ -x /usr/bin/keychain -o -x /usr/local/bin/keychain ] && \
-    eval $(keychain --agents ssh --eval --quiet id_rsa)
-
+case "$-" in
+    *i*) if [ -r ~/.bashrc ]; then
+	     . ~/.bashrc;
+	 fi
+	 ;;
+esac
 

@@ -14,10 +14,14 @@ keycode  64 = Control_L NoSymbol Control_L NoSymbol Control_L
 keycode 133 = Meta_L NoSymbol Meta_L NoSymbol Meta_L
 ! left alt
 keycode  37 = Alt_L Alt_L Alt_L Alt_L Alt_L Alt_L
+
+
+
+! don't swap right alt and right control... see how it goes
 ! right alt
-keycode 108 = Control_R NoSymbol Control_R NoSymbol Control_R
+!!! keycode 108 = Control_R NoSymbol Control_R NoSymbol Control_R
 ! right control
-keycode 105 = ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key
+!!! keycode 105 = ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key
 
 add Control = Control_L Control_R
 add mod1 = Alt_L

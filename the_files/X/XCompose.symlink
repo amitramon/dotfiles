@@ -1,6 +1,7 @@
 # AR UTF-8 (Unicode) compose sequence
 
-include "%S/en_US.UTF-8/Compose"
+#include "%S/en_US.UTF-8/Compose"
+include "%L"
 
 # Part 0 - Amit's definitions
 
