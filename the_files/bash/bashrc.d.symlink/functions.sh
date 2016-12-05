@@ -17,6 +17,13 @@ dropbox-amit()
 }
 
 
+v-sh()
+{
+    pygmentize -l sh $1 | less
+}
+
+
+
 ff ()
 {
     LC_ALL=he_IL.UTF-8 firefox $@ &
