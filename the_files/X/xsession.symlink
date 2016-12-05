@@ -9,9 +9,8 @@
 # If using .xinitrc instead, note that the system Xsession file will not be called
 # and some tasks that are done by it will not be done.
 
-[ -r ~/.xsessionrc ] && . ~/.xsessionrc
-
-echo "$(date) ~/.xsession called." >> /tmp/xsession-called
+# this should be sourced by one of Xsession scripts.
+# [ -r ~/.xsessionrc ] && . ~/.xsessionrc
 
 # Debian: done by script in /etc/X11/Xsession.d/
 # xrdb -merge $HOME/.Xresources
