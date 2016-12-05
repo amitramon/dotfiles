@@ -1,0 +1,9 @@
+# ~/.xsessionrt
+#
+# Sourced by X session scripts on Debian and Ubuntu.
+
+[ -r /etc/profile ] && . /etc/profile
+[ -r ~/.bash_profile ] && . ~/.bash_profile
+
+
+set-lang -l 5

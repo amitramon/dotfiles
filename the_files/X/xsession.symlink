@@ -9,8 +9,9 @@
 # If using .xinitrc instead, note that the system Xsession file will not be called
 # and some tasks that are done by it will not be done.
 
-[ -r /etc/profile ] && . /etc/profile
-[ -r ~/.bash_profile ] && . ~/.bash_profile
+[ -r ~/.xsessionrc ] && . ~/.xsessionrc
+
+echo "$(date) ~/.xsession called." >> /tmp/xsession-called
 
 # Debian: done by script in /etc/X11/Xsession.d/
 # xrdb -merge $HOME/.Xresources
@@ -55,7 +56,6 @@ tomboy &
 # wicd-gtk &
 # xpad &
 # xfce4-power-manager
-set-lang -l 5
 
 exec startxfce4 # xfce4-session
 #exec enlightenment_start
