@@ -3,6 +3,9 @@
 
 # alias tmux='TERM=xterm-256color tmux'
 
+alias startfv='startx ~/.xinitrc fvwm -- :1'
+alias startxf='startx ~/.xinitrc xfce4 -- :0'
+
 alias mygit='git --git-dir=$HOME/.myconfig.git/ --work-tree=$HOME'
 
 alias texclean='rm -f *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky'
@@ -42,12 +45,6 @@ alias cd..='cd ..'
 alias lfo=list_files_only
 alias lsd='ls -d */'
 
-alias e='run_emacs'
-alias e24='run_emacs24'
-alias enw='/usr/bin/emacs -nw'
-alias e24nw='~/src/emacs/emacs-build/src/emacs -nw --no-desktop --no-splash'
-alias e2nw='/usr/local/bin/emacs --no-splash -nw'
-
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -65,3 +62,11 @@ alias zombie='ps ex | awk "\$3==\"Z\"{print \$1, \$5}"'
 alias ffdev='firefox --no-remote -P amit-dev >/dev/null 2>&1 &'
 
 alias quickweb='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
+
+alias pt='sudo powertop --auto-tune'
+
+alias wttr-ta='curl wttr.in/tel-aviv'
+
+alias wttr-hi='curl wttr.in/haifa'
+
+alias wttr-nt='curl wttr.in/netanya'

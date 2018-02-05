@@ -10,66 +10,52 @@
 # and some tasks that are done by it will not be done.
 
 # this should be sourced by one of Xsession scripts.
+# required when starting the session via a display manager,
+# but not when starting from a shell with startx.
 # [ -r ~/.xsessionrc ] && . ~/.xsessionrc
 
-# Debian: done by script in /etc/X11/Xsession.d/
+# Debian: these are done by script in /etc/X11/Xsession.d/
 # xrdb -merge $HOME/.Xresources
-
-# Debian: done by script in /etc/X11/Xsession.d/
 #unclutter -root &
 
-# handled by kblo (below)
-### xmodmap $HOME/.Xmodmap
 
 # xsetroot -solid green &
 # (sleep 5; conky) &
-
-
-
-# LC_TIME=C LC_MESSAGES=C xterm -e screen &
-
-# will now run emacs as a daemon
-# emacs -f my-server-start &
 
 # xclock &
 # cairo-clock -x 20 -y 20 -s -i -e -r 1 -w 240 -g 240 &
 # gnubiff --systemtray -n &
 
 ###tilda &
-# icewmbg &
-# exec icewm-session
-#xterm &
-#exec startkde
+
+#----------------------------------------
+# Input method
+#----------------------------------------
+# force input method to XIM in order for
+# "old" XCompose to work (instead of scim or ibus,
+# which I'm not sure that I need)
+GTK_IM_MODULE="xim"
+QT_IM_MODULE="xim"
+export XMODIFIERS="@im=none"
+export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
+
+# https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint
+# enable vertical scrolling using the trackpoint:
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+# enable horizontal scrolling in addition to vertical scrolling
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 
 xbindkeys
 xscreensaver -nosplash &
 
 xterm &
 mlterm --name=Mail --geometry 100x35+20+100 &
-# psensor &
-# gkrellm &
 
-# keepassx &
+set-lang -l 5
 
-tomboy &
-# wicd-gtk &
-# xpad &
-# xfce4-power-manager
+# use dbus-launch explicitly only when this script is called as '.xinitrc'
+# exec dbus-launch --sh-syntax --exit-with-session fvwm >/tmp/fvwm_${USER}.log 2>&1
 
-exec startxfce4 # xfce4-session
-#exec enlightenment_start
-# exec gnome-session
-
-# exec twm
-# the ck-launch-session prefix grant policy permissions to the session
-### exec ck-launch-session awesome
-## >> exec awesome
-# exec ck-launch-session startxfce4
-## exec gnome-session
-## exec kde4
-# exec fvwm-crystal
-
-
-
-
-
+exec fvwm >/tmp/fvwm_${USER}.log 2>&1

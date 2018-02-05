@@ -1,0 +1,38 @@
+[config]
+# repository = sftp://MY.SERVER/mnt/backups/obnam-repo
+# repository = /media/ar_backup/obnam.backup
+# root = /home/amit
+# exclude-caches = yes
+# exclude = /.local/share/Trash/, 
+#         /.cache/mozilla/firefox/[^/]*.default/Cache, \.mozilla, \.cache,
+# 	\.local,\.config, hila-union, \.dropboxes,
+# 	\.git, \.icedove, \.thumbnails,
+# 	Downloads, site_media, amit/Mail, doc_db, mail_db, amit/phones, amit/var,
+# 	Dropbox, \.offlineimap
+
+# include = \.offlineimaprc, \.local/share/keyrings
+
+repository = /tmp/obnam
+root = /tmp/testroot
+exclude-caches = yes
+
+exclude = /.local/share/Trash/, 
+        /.cache/mozilla/firefox/[^/]*.default/Cache, \.mozilla, \.cache,
+	\.local,\.config, hila-union, \.dropboxes,
+	\.git, \.icedove, \.thumbnails,
+	Downloads, site_media, amit/Mail, doc_db, mail_db, amit/phones, amit/var,
+	Dropbox, \.offlineimap
+
+include = \.offlineimaprc, \.local
+
+#/share/keyrings
+
+# exclude = \.local
+
+# include = \.local
+
+
+keep = 30d,50w
+lru-size = 1024
+upload-queue-size = 512
+

@@ -17,11 +17,19 @@ dropbox-amit()
 }
 
 
+garmin()
+{
+    . ~/.virtualenvs/garmin/bin/activate
+    antfs-cli
+}
+
+
+
+
 v-sh()
 {
     pygmentize -l sh $1 | less
 }
-
 
 
 ff ()
@@ -53,16 +61,16 @@ firewall-restart ()
 }
 
 
-
-# Function which adds an alias to the current shell and to
-# the ~/.bash_aliases file.
+# Add an alias to the current shell and to
+# the aliases file.
 add-alias ()
 {
-   local name=$1 value="$2"
-   echo "" >>~/.bash_aliases
-   echo alias $name=\'$value\' >>~/.bash_aliases
-   eval alias $name=\'$value\'
-   alias $name
+    local name=$1 value="$2"
+    local aliases=~/.bashrc.d/aliases
+    echo "" >> $aliases
+    echo alias $name=\'$value\' >> $aliases
+    eval alias $name=\'$value\'
+    alias $name
 }
 
 # "repeat" command.  Like: repeat 10 echo foo
@@ -326,7 +334,7 @@ function pdfreducesize()
 {
     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
 	-dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH \
-	-sOutputFile=$1 $2
+	-sOutputFile=$2 $1
 }
 
 function my-diff()
@@ -354,3 +362,38 @@ function =()
 {
     echo "${1}"|wcalc;
 }
+
+function mydoc()
+{
+    find ~/Dropbox/mydoc/source/ -name *rst -exec grep -H --color "$1" {} \;
+}
+
+function dmrestart()
+{
+    sudo systemctl status lightdm.service
+    sudo systemctl restart lightdm.service
+}
+
+function dmstatus()
+{
+    sudo systemctl status lightdm.service
+}
+
+function fix-sound()
+{
+    pasuspender /bin/true
+    # maybe also
+    # pulseaudio -k
+}
+
+function count-files()
+{
+    local root_dir=.
+    [[ -n $1 ]] && root_dir="$1"
+
+    for d in $(find "$root_dir" -maxdepth 1 -type d)
+    do
+    	echo $(find $d -type f | wc -l) $d
+    done | sort -n -k 1
+}
+

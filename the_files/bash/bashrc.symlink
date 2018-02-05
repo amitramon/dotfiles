@@ -56,7 +56,7 @@ set -o noclobber
 shopt -s execfail
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+#shopt -s checkwinsize
 # required to allow cd completion of environment variables
 shopt -s cdable_vars
 
@@ -111,12 +111,6 @@ export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR
 export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
 export LINES COLUMNS
 
-# force input method to XIM in order for
-# "old" XCompose to work (intead of scim)
-GTK_IM_MODULE="xim" # "scim"
-QT_IM_MODULE="xim" # "scim"
-export XMODIFIERS="@im=none"	# not sure about it
-export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
 
 # variables for dict_lookup script
 D_DICT_CMD=dict
@@ -127,3 +121,4 @@ D_TERM_Y=+20
 D_TERM_H=+45
 
 export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H
+
