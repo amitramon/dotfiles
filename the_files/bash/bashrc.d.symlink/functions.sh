@@ -23,15 +23,6 @@ garmin()
     antfs-cli
 }
 
-
-
-
-v-sh()
-{
-    pygmentize -l sh $1 | less
-}
-
-
 ff ()
 {
     LC_ALL=he_IL.UTF-8 firefox $@ &
@@ -337,10 +328,22 @@ function pdfreducesize()
 	-sOutputFile=$2 $1
 }
 
+v-sh()
+{
+    pygmentize -l sh $1 | less
+}
+
+
 function my-diff()
 {
     diff $@ | pygmentize -l diff
 }
+
+function v-diff()
+{
+    diff -u "$1" "$2" | pygmentize -l udiff | less
+}
+
 
 function rename-nokia-c2-photos()
 {
@@ -396,4 +399,5 @@ function count-files()
     	echo $(find $d -type f | wc -l) $d
     done | sort -n -k 1
 }
+
 
