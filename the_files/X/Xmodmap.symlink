@@ -1,27 +1,36 @@
+!!
+!! Remap some keyboard keys: switch left Alt and Control,
+!! disable Caps Lock and use it as Mode Switch.
+!! Meta is not defined, so Emacs will pick Alt as Meta.
+!!
+
+! Key codes
+! ---------
+! Caps Lock        66
+! Left Shift       50
+! Right Shift      62
+! Left Control     37
+! Right Control    105
+! Left Alt         64
+! Right Alt        108
+! Left Windows     133
+! Right Windows    134
+! Menu             135
+
+! Disable physical Caps Lock and use it as Mode Switch
 clear lock
+keycode  66 = Mode_switch Mode_switch Mode_switch Mode_switch 
+
+! Switch between left Alt and Control
 clear control
 clear mod1
-
-! caps lock
-!! keycode  66 = Mode_switch ISO_Next_Group Mode_switch ISO_Next_Group Mode_switch ISO_Next_Group
-keycode  66 = Mode_switch Mode_switch Mode_switch Mode_switch 
-!! keycode  135 = Menu ISO_Next_Group Menu ISO_Next_Group Menu ISO_Next_Group
-! Scroll Lock
-! keycode  78 = ISO_Next_Group
-! left control
 keycode  64 = Control_L NoSymbol Control_L NoSymbol Control_L
-! left window
-keycode 133 = Meta_L NoSymbol Meta_L NoSymbol Meta_L
-! left alt
 keycode  37 = Alt_L Alt_L Alt_L Alt_L Alt_L Alt_L
-
-
-
-! don't swap right alt and right control... see how it goes
-! right alt
-!!! keycode 108 = Control_R NoSymbol Control_R NoSymbol Control_R
-! right control
-!!! keycode 105 = ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key ISO_Level3_Shift Multi_key
-
 add Control = Control_L Control_R
 add mod1 = Alt_L
+
+! Make Window keys Super keys
+clear mod4
+keycode 133 = Super_L
+keycode 134 = Super_R
+add mod4 = Super_L Super_R

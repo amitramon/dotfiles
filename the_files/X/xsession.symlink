@@ -5,7 +5,7 @@
 # Note: Executed by startx only if .xinitrc does not exist.
 # More details: if .xinitrc exists, it is executed. If not, the system xinitrc
 # is executed, which invokes system Xsession file, which, in turn, invokes this
-# file -t the user's .xsession file.
+# file - the user's .xsession file.
 # If using .xinitrc instead, note that the system Xsession file will not be called
 # and some tasks that are done by it will not be done.
 
@@ -16,7 +16,7 @@
 
 # Debian: these are done by script in /etc/X11/Xsession.d/
 # xrdb -merge $HOME/.Xresources
-#unclutter -root &
+# unclutter -root &
 
 
 # xsetroot -solid green &
@@ -59,3 +59,5 @@ set-lang -l 5
 # exec dbus-launch --sh-syntax --exit-with-session fvwm >/tmp/fvwm_${USER}.log 2>&1
 
 exec fvwm >/tmp/fvwm_${USER}.log 2>&1
+# exec twm
+
