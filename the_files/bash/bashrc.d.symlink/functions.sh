@@ -401,3 +401,30 @@ function count-files()
 }
 
 
+# aptitude package management
+
+# list explicitly installed packages (i.e., not throuh dependencies)
+function apt-installed()
+{
+    aptitude search '~i !~M' -F"%p"
+}
+
+# search for installed packages by pattern
+function apt-regex()
+{
+    aptitude search "~i~n${1}" -F"%p"
+}
+
+# search for installed obsolete packages
+function apt-obsolete()
+{
+    aptitude search ~o -F"%p"
+}
+
+
+
+function solv()
+{
+    echo "scale=2; $*" | /usr/bin/bc -ql
+}
+
