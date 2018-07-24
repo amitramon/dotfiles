@@ -421,7 +421,11 @@ function apt-obsolete()
     aptitude search ~o -F"%p"
 }
 
-
+# what depends on a package
+function apt-rdepends()
+{
+    aptitude search "~i~D${1}"
+}
 
 function solv()
 {
