@@ -9,10 +9,27 @@ dropbox-hila()
 
 dropbox-amit()
 {
+    local HOME=~/.dropboxes/amit
+    local args=''
+    
+    if [[ $1 == '-h' ]];then
+	echo ${FUNCNAME[0]} '[ -h | -i | CMD ]'
+	echo '    -h    display this help and exit'
+	echo '    -i    reinstall dropbox and start it'
+	echo 'when none of these options is given, start dropbox with provided CMD'
+	return
+    elif [[ $1 == '-i' ]];then
+	dropbox.py stop
+	sleep 3
+	rm -fr $HOME/.dropbox-dist
+	args='start -i'
+    else
+	args=$@
+    fi
+    
     (
-	local HOME=~/.dropboxes/amit
     	cd $HOME/Dropbox
-	dropbox.py $@ # start -i
+    	dropbox.py $args
     )
 }
 

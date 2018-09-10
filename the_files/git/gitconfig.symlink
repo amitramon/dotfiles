@@ -37,3 +37,7 @@ lgg = log --graph \
 #    tag = blue
 #    stash = white
 #    HEAD = bold magenta
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
