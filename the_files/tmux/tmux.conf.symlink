@@ -1,11 +1,6 @@
 unbind C-b
 set -g prefix `
-#bind-key ` send-prefix
 setw -g mode-keys emacs
-
-# unbind-key "'"
-# unbind-key `
-
 bind-key "'" send-prefix
 bind-key ` last-window
 
@@ -21,7 +16,6 @@ set -g set-titles-string '#(whoami)@#h'
 
 # Status bar customization
 # set -g status-utf8 on
-set -g status-bg "#4374c4"
 set -g status-fg white
 set -g status-interval 5
 set -g status-left-length 90
@@ -34,4 +28,13 @@ set -g status-justify left
 set -g status-right '#[fg=Cyan]#S #[fg=white]%a %d %b %R' 
 
 # Highlight active window
-set-window-option -g window-status-current-bg red
+
+
+# if-shell '[ -n "$MAIL_TTY" ]' \
+# 'set -g status-style bg=colour225,fg="#cccccc"; \
+# set-window-option -g window-status-current-bg green' \
+# 'set -g status-bg "#4374c4"; \
+# set-window-option -g window-status-current-bg blue'
+
+#'set -g terminal-overrides "xterm*:XT:smcup@:rmcup@"; \
+# set -g default-terminal "screen-256color"; \
