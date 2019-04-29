@@ -385,7 +385,7 @@ function =()
 
 function mydoc()
 {
-    find ~/Dropbox/mydoc/source/ -name *rst -exec grep -H --color "$1" {} \;
+    find ~/Dropbox/mydoc/source/ -name *rst -exec grep -H --color "$@" {} \;
 }
 
 function dmrestart()
@@ -421,31 +421,47 @@ function count-files()
 # aptitude package management
 
 # list explicitly installed packages (i.e., not throuh dependencies)
-function apt-installed()
+function apt_installed()
 {
     aptitude search '~i !~M' -F"%p"
 }
 
 # search for installed packages by pattern
-function apt-regex()
+function apt_regex()
 {
     aptitude search "~i~n${1}" -F"%p"
 }
 
 # search for installed obsolete packages
-function apt-obsolete()
+function apt_obsolete()
 {
     aptitude search ~o -F"%p"
 }
 
 # what depends on a package
-function apt-rdepends()
+function apt_rdepends()
 {
     aptitude search "~i~D${1}"
 }
+
+function apt_not_debian()
+{
+    aptitude search "~i ! ~Odebian"
+}
+
+function apt_log_installed()
+{
+    sed -n  's/\[INSTALL\] \([^:]\+\):.*/\1/p' $1
+}
+
+
 
 function solv()
 {
     echo "scale=2; $*" | /usr/bin/bc -ql
 }
 
+function visualvm()
+{
+    visualvm --jdkhome /usr/lib/jvm/java-11-openjdk-amd64  $@ &
+}

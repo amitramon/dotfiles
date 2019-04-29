@@ -1,4 +1,3 @@
-# -*- shell-script -*-
 # Some useful aliases.
 
 # alias tmux='TERM=xterm-256color tmux'
