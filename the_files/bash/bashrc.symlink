@@ -1,4 +1,5 @@
-# -*-shell-script-*-
+# -*- mode: shell-script -*-
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -19,6 +20,14 @@ fi
 if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
     . /usr/local/django/django_src/extras/django_bash_completion
 fi
+
+# virtualenvwrapper settings
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/projects
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+. $HOME/.local/bin/virtualenvwrapper.sh
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
 # help less display various binary files
 if [ -x /usr/bin/lesspipe ]; then
@@ -61,8 +70,12 @@ shopt -s execfail
 shopt -s cdable_vars
 
 # enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ]; then
-    eval "`dircolors -b`"
+if [[ $TERM != "dumb" ]]; then
+    if [[ -r ~/.dircolors ]]; then
+	eval $(dircolors -b ~/.dircolors)
+    else
+	eval $(dircolors -b)
+    fi
     alias ls='ls --color=auto'
 fi
 
@@ -90,7 +103,7 @@ if [ -d ~/.bashrc.d ]; then
   unset i
 fi
 
-CDPATH=.:~/:~/django_sites/:~/documents/:~/projects/
+CDPATH=.:~/:~/documents/:~/projects/
 EDITOR=$HOME/scripts/ec-nw
 VISUAL=$HOME/scripts/ec-nw
 FCEDIT=$HOME/scripts/ec-nw

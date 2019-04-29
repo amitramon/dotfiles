@@ -1,16 +1,36 @@
-# -*-shell-script-*-
+# -*- mode: shell-script -*-
 # ~/.bash_profile: executed by Bash login shell.
 
-if [ -r ~/.profile ]; then
-    . ~/.profile;
-fi
+function log_msg()
+{
+    date "+%Y-%m-%d %H:%M:%S bash_profile: $*" >> /tmp/bash_profile.log
+}
+
+log_msg entered
+
+[[ -r ~/.profile ]] && . ~/.profile;
 
 # export SHELL=${SHELL:-${BASH:-/bin/bash}}
+[[ $- =~ i && -r ~/.bashrc ]] && . ~/.bashrc
 
-case "$-" in
-    *i*) if [ -r ~/.bashrc ]; then
-	     . ~/.bashrc;
-	 fi
-	 ;;
-esac
 
+if [[ -v FBTERM_ON ]]
+then
+    # solarized theme base0 (fg) and base03 (bg)
+    echo -en "\e]P7839496"
+    echo -en "\e]P0002b36"
+    log_msg 'FFBTERM_ON is set'
+    if [[ -x /usr/bin/tmux || -x /usr/local/bin/tmux ]]
+    then
+	TERM=fbterm tmux
+    fi
+else
+    if [[ $(tty) =~ /dev/tty[1-4] \
+	  && ( -x /usr/bin/fbterm || -x /usr/local/bin/fbterm ) ]]
+    then
+	log_msg 'calling fbterm'
+	FBTERM_ON=1 fbterm -- bash --login
+    fi
+fi
+  
+   
