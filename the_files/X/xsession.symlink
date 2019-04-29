@@ -39,25 +39,43 @@ QT_IM_MODULE="xim"
 export XMODIFIERS="@im=none"
 export GTK_IM_MODULE QT_IM_MODULE XMODIFIERS
 
+# Note sep 2018: it seems this are not needed for T480
 # https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint
 # enable vertical scrolling using the trackpoint:
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 # enable horizontal scrolling in addition to vertical scrolling
-xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+# xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 
 xbindkeys
-xscreensaver -nosplash &
+# xscreensaver -nosplash &
 
-xterm &
-mlterm --name=Mail --geometry 100x35+20+100 &
+x-terminal-emulator &
+mlterm --name=Mail &
+
+#mlterm --name=Mail --geometry 100x35+20+100 &
+# tmp 1
+### mlterm --name=Mail --geometry 120x45+300+100 -e muxmail &
 
 set-lang -l 5
 
 # use dbus-launch explicitly only when this script is called as '.xinitrc'
 # exec dbus-launch --sh-syntax --exit-with-session fvwm >/tmp/fvwm_${USER}.log 2>&1
 
-exec fvwm >/tmp/fvwm_${USER}.log 2>&1
+# moved to using systemd:
+# xfce4-power-manager &
+
+# made these to start by awesome:
+# nm-applet &
+# keepassxc &
+# xfce4-clipman &
+# hp-systray &
+# redshift-gtk &
+# blueman-applet &
+
+exec awesome
+
+# exec fvwm >/tmp/fvwm_${USER}.log 2>&1
 # exec twm
 

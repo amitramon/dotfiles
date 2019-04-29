@@ -51,5 +51,33 @@
     m:0x50 + c:45
     Mod2+Mod4 + t 
 
-#
+"set-lang -l 5"
+    F12
+
+"volume_set mute"
+    XF86AudioMute
+
+"volume_set down"
+    XF86AudioLowerVolume
+
+
+"volume_set up"
+    XF86AudioRaiseVolume
+
+"volume_set mic"
+    Mod2 + XF86AudioMicMute
+
+# XF86Display
+# XF86WLAN
+# XF86Tools
+# XF86Bluetooth
+
+# XF86Launch1
+# XF86Launch2
+
+
+
+
+
+# 40AJ0135US Thinkpad Ultra Docking Station
 # End of xbindkeys configuration
