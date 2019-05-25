@@ -4,8 +4,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Files you make look like rw-rw-r
-umask 002
+# Files you make look like rw-r-r
+umask 0022
 
 # Don't make useless coredump files.  If you want a coredump,
 # say "ulimit -c unlimited" and then cause a segmentation fault.
@@ -21,11 +21,15 @@ if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
     . /usr/local/django/django_src/extras/django_bash_completion
 fi
 
+# kubectl completion
+which kubectl > /dev/null && . <(kubectl completion bash)
+
 # virtualenvwrapper settings
 # export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/projects
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-. $HOME/.local/bin/virtualenvwrapper.sh
+VIRTENVWRAPPER=$HOME/.local/bin/virtualenvwrapper.sh
+[[ -r $VIRTENVWRAPPER ]] && . $VIRTENVWRAPPER
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 # source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
@@ -107,6 +111,8 @@ CDPATH=.:~/:~/documents/:~/projects/
 EDITOR=$HOME/scripts/ec-nw
 VISUAL=$HOME/scripts/ec-nw
 FCEDIT=$HOME/scripts/ec-nw
+# this helps urlviwe to use a custom browser
+BROWSER=/usr/local/bin/firefox
 
 # Setup history environment variables.
 # HISTFILE=~/.history/history.$HOSTNAME
@@ -120,7 +126,7 @@ shopt -s histappend
 # select grep color
 GREP_COLOR="1;33"
 
-export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR
+export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR BROWSER
 export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
 export LINES COLUMNS
 
@@ -135,3 +141,7 @@ D_TERM_H=+45
 
 export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
