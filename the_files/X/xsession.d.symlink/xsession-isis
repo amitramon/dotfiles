@@ -1,0 +1,10 @@
+# -*- mode: shell-script -*-
+# Note sep 2018: it seems this are not needed for T480
+# https://wiki.debian.org/InstallingDebianOn/Thinkpad/Trackpoint
+# enable vertical scrolling using the trackpoint:
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+# enable horizontal scrolling in addition to vertical scrolling
+xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+

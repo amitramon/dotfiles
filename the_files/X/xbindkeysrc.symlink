@@ -43,13 +43,14 @@
 
 #Remark
 "dict_lookup"
-    m:0x50 + c:43
-    Mod2+Mod4 + d 
+    m:0x41 + c:43
+    Shift+Mod4 + d
 
 #Remark
 "gtranslate"
-    m:0x50 + c:45
-    Mod2+Mod4 + t 
+    m:0x41 + c:45
+    Shift+Mod4 + t
+
 
 "set-lang -l 5"
     F12
