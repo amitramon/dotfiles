@@ -16,23 +16,6 @@ if [ -z "$PS1" ]; then
 	return
 fi
 
-# django completion
-if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
-    . /usr/local/django/django_src/extras/django_bash_completion
-fi
-
-# kubectl completion
-which kubectl > /dev/null && . <(kubectl completion bash)
-
-# virtualenvwrapper settings
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/projects
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-VIRTENVWRAPPER=$HOME/.local/bin/virtualenvwrapper.sh
-[[ -r $VIRTENVWRAPPER ]] && . $VIRTENVWRAPPER
-# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
-
 # help less display various binary files
 if [ -x /usr/bin/lesspipe ]; then
     eval "$(lesspipe)"
@@ -97,6 +80,21 @@ xterm*|rxvt*|mlterm*)
     ;;
 esac
 
+# Setup history environment variables.
+# HISTFILE=~/.history/history.$HOSTNAME
+HISTCONTROL="ignoreboth:erasedups"
+HISTSIZE=4000
+HISTFILESIZE=4000
+HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
+HISTTIMEFORMAT="%F %T "
+shopt -s histappend
+
+GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+
+export MAILCHECK PATH GREP_COLORS
+export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
+export LINES COLUMNS
+
 # source optional settings
 if [ -d ~/.bashrc.d ]; then
   for i in ~/.bashrc.d/*.sh; do
@@ -107,41 +105,10 @@ if [ -d ~/.bashrc.d ]; then
   unset i
 fi
 
-CDPATH=.:~/:~/documents/:~/projects/
-EDITOR=$HOME/scripts/ec-nw
-VISUAL=$HOME/scripts/ec-nw
-FCEDIT=$HOME/scripts/ec-nw
-# this helps urlviwe to use a custom browser
-BROWSER=/usr/local/bin/firefox
+# load per host-user settings; this allows for sharing .bashrc between
+# user and hosts more easily
+personal_rc=~/.bashrc.d/${HOSTNAME}-${USER}.rc
+if [ -r $personal_rc ]; then
+    . $personal_rc
+fi
 
-# Setup history environment variables.
-# HISTFILE=~/.history/history.$HOSTNAME
-HISTCONTROL="ignoreboth:erasedups"
-HISTSIZE=4000
-HISTFILESIZE=4000
-HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
-HISTTIMEFORMAT="%F %T "
-shopt -s histappend
-
-# select grep color
-GREP_COLOR="1;33"
-
-export EDITOR VISUAL FCEDIT CDPATH MAILCHECK PATH GREP_COLOR BROWSER
-export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
-export LINES COLUMNS
-
-
-# variables for dict_lookup script
-D_DICT_CMD=dict
-# D_XTERM_TITLE="Dict_Lookup"
-# D_TEXT_WIDTH=300
-D_TERM_X=+20
-D_TERM_Y=+20
-D_TERM_H=+45
-
-export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

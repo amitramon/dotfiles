@@ -1,0 +1,42 @@
+# -*- mode: shell-script -*-
+
+# django completion
+if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
+    . /usr/local/django/django_src/extras/django_bash_completion
+fi
+
+# kubectl completion
+which kubectl > /dev/null && . <(kubectl completion bash)
+
+# virtualenvwrapper settings
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/projects
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+VIRTENVWRAPPER=$HOME/.local/bin/virtualenvwrapper.sh
+[[ -r $VIRTENVWRAPPER ]] && . $VIRTENVWRAPPER
+# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+# source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+CDPATH=.:~/:~/documents/:~/projects/
+EDITOR=$HOME/scripts/my-editor
+VISUAL=$HOME/scripts/my-editor
+# this helps urlviwe to use a custom browser
+BROWSER=/usr/local/bin/firefox
+
+export EDITOR VISUAL CDPATH BROWSER
+
+
+# variables for dict_lookup script
+D_DICT_CMD=dict
+# D_XTERM_TITLE="Dict_Lookup"
+# D_TEXT_WIDTH=300
+D_TERM_X=+20
+D_TERM_Y=+20
+D_TERM_H=+45
+
+export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
