@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# COMMON_OPT='-f console -O encoding=utf-8,bg=dark'
+# use system defined terminal colors
+# COMMON_OPT='-f console -O encoding=utf-8'
+
+# use specified style
+COMMON_OPT='-f 256 -O encoding=utf-8,style=emacs'
+SHELL_PATTERN='#![[:space:]]*/bin/.*sh|#![[:space:]]*/usr/bin/env[[:space:]]+.*sh|#.*mode:[[:space:]]*shell-script'
+PYTHON_PATTERN='#![[:space:]]*/usr/.*python'
+
+case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
+    # extensions not register with pygmentize, so explicitly state
+    # lexers
+    *.cljc|*.edn)
+	pygmentize $COMMON_OPT -l Clojure "$1";; 
+    # add all extensions you want to handle here
+    *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
+    *.ad[asb]|*.tex|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
+    *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
+    *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass|\
+    *.html|*.htm|*.shtml|*.ssi|*.css|*.el|*.lisp|*.clj*|*.lua|*.json)
+	pygmentize $COMMON_OPT "$1" ;;
+    # all others - test for specific cases based on content
+    *)
+        if grep -Eq "$SHELL_PATTERN" "$1" 2> /dev/null; then
+            pygmentize $COMMON_OPT -l sh "$1"
+        elif grep -Eq "$PYTHON_PATTERN" "$1" 2> /dev/null; then
+            pygmentize $COMMON_OPT -l python "$1"
+        else
+            exit 1
+        fi
+	;;
+esac
+
+exit 0
+
+ 
+ 
