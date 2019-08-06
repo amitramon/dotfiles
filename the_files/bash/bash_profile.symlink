@@ -14,7 +14,7 @@ log_msg entered
 [[ $- =~ i && -r ~/.bashrc ]] && . ~/.bashrc
 
 
-if [[ -v FBTERM_ON ]]
+if [ -n "${FBTERM_ON:+x}" ]
 then
     # solarized theme base0 (fg) and base03 (bg)
     echo -en "\e]P7839496"

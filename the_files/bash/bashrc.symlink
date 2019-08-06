@@ -58,12 +58,19 @@ shopt -s cdable_vars
 
 # enable color support of ls and also add handy aliases
 if [[ $TERM != "dumb" ]]; then
-    if [[ -r ~/.dircolors ]]; then
-	eval $(dircolors -b ~/.dircolors)
-    else
-	eval $(dircolors -b)
-    fi
-    alias ls='ls --color=auto'
+    case "$OSTYPE" in
+	linux*)
+	    if [[ -r ~/.dircolors ]]; then
+		eval $(dircolors -b ~/.dircolors)
+	    else
+		eval $(dircolors -b)
+	    fi
+	    alias ls='ls --color=auto'
+	    ;;
+	darwin*)
+	    alias ls='ls -G'
+	    ;;
+    esac
 fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
