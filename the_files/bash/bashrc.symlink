@@ -68,7 +68,7 @@ if [[ $TERM != "dumb" ]]; then
 	    alias ls='ls --color=auto'
 	    ;;
 	darwin*)
-	    alias ls='ls -G'
+	    export CLICOLOR=1
 	    ;;
     esac
 fi
