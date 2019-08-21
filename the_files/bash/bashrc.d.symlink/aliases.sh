@@ -69,4 +69,15 @@ alias wttr-ta='curl wttr.in/tel-aviv'
 alias wttr-hi='curl wttr.in/haifa'
 
 alias wttr-nt='curl wttr.in/netanya'
-alias df='df -hT -x tmpfs -x devtmpfs'
+
+
+case "$OSTYPE" in
+    linux*)
+	alias df='df -hT -x tmpfs -x devtmpfs'
+	;;
+    darwin*)
+	alias df='df -P -h -T hfs,apfs,exfat,ntfs'
+	;;
+esac
+
+
