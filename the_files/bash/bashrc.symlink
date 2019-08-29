@@ -87,6 +87,9 @@ xterm*|rxvt*|mlterm*)
     ;;
 esac
 
+# increase font size for qt applications
+export QT_DEVICE_PIXEL_RATIO=2
+
 # Setup history environment variables.
 # HISTFILE=~/.history/history.$HOSTNAME
 HISTCONTROL="ignoreboth:erasedups"

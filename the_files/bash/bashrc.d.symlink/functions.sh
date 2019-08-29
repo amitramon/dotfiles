@@ -465,3 +465,8 @@ function visualvm()
 {
     visualvm --jdkhome /usr/lib/jvm/java-11-openjdk-amd64  $@ &
 }
+
+function test-mic()
+{
+    arecord -vv -f dat /dev/null
+}
