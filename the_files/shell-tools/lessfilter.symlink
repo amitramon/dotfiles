@@ -13,13 +13,16 @@ case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
     # extensions not register with pygmentize, so explicitly state
     # lexers
     *.cljc|*.edn)
-	pygmentize $COMMON_OPT -l Clojure "$1";; 
+	pygmentize $COMMON_OPT -l Clojure "$1";;
+    *.r|*.rhistory|*.rprofile|*.renviron)
+	pygmentize $COMMON_OPT -l S "$1";;
     # add all extensions you want to handle here
     *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
     *.ad[asb]|*.tex|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
     *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
     *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass|\
-    *.html|*.htm|*.shtml|*.ssi|*.css|*.el|*.lisp|*.clj*|*.lua|*.json)
+    *.html|*.htm|*.shtml|*.ssi|*.css|*.el|*.lisp|*.clj*|*.lua|*.json|\
+    *.r|*.s)
 	pygmentize $COMMON_OPT "$1" ;;
     # all others - test for specific cases based on content
     *)

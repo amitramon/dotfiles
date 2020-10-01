@@ -1,12 +1,12 @@
 # -*- mode: shell-script -*-
 
 # django completion
-if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
-    . /usr/local/django/django_src/extras/django_bash_completion
-fi
+# if [ -r /usr/local/django/django_src/extras/django_bash_completion ]; then
+#     . /usr/local/django/django_src/extras/django_bash_completion
+# fi
 
 # kubectl completion
-which kubectl > /dev/null && . <(kubectl completion bash)
+# which kubectl > /dev/null && . <(kubectl completion bash)
 
 # virtualenvwrapper settings
 # export WORKON_HOME=$HOME/.virtualenvs
@@ -37,6 +37,7 @@ D_TERM_H=+45
 export D_DICT_CMD D_XTERM_TITLE D_TEXT_WIDTH D_TERM_X D_TERM_Y D_TERM_H
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads 
+# nvm bash_completion
