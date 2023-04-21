@@ -28,6 +28,10 @@
 
 ###tilda &
 
+# NVIDIA driver configuration - comment out when using the Intel driver
+# xrandr --setprovideroutputsource modesetting NVIDIA-0
+# xrandr --auto
+
 #----------------------------------------
 # Input method
 #----------------------------------------
@@ -48,7 +52,7 @@ xbindkeys
 # xscreensaver -nosplash &
 
 x-terminal-emulator &
-mlterm --name=Mail &
+# mlterm --name=Mail &
 
 #mlterm --name=Mail --geometry 100x35+20+100 &
 # tmp 1

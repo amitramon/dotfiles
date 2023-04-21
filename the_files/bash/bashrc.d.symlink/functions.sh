@@ -33,6 +33,32 @@ dropbox-amit()
     )
 }
 
+dropbox-localize()
+{
+    local HOME=~/.dropboxes/localize
+    local args=''
+    
+    if [[ $1 == '-h' ]];then
+	echo ${FUNCNAME[0]} '[ -h | -i | CMD ]'
+	echo '    -h    display this help and exit'
+	echo '    -i    reinstall dropbox and start it'
+	echo 'when none of these options is given, start dropbox with provided CMD'
+	return
+    elif [[ $1 == '-i' ]];then
+	dropbox.py stop
+	sleep 3
+	rm -fr $HOME/.dropbox-dist
+	args='start -i'
+    else
+	args=$@
+    fi
+    
+    (
+    	cd $HOME/Dropbox
+    	dropbox.py $args
+    )
+}
+
 
 garmin()
 {
@@ -214,14 +240,6 @@ rot13()
 	fi
 }
 
-watch()
-{
-        if [ $# -ne 1 ] ; then
-                tail -f nohup.out
-        else
-                tail -f $1
-        fi
-}
 
 #
 #       Remote login passing all 8 bits (so meta key will work)
@@ -314,6 +332,10 @@ function setkeys()
 {
     [ -x /usr/bin/keychain -o -x /usr/local/bin/keychain ] && \
 	eval $(keychain --agents ssh --eval --quiet id_rsa)
+
+    sed -n 's/\(setenv\) \(SSH[^ ]*\) \(.*\);$/(\1 "\2" "\3")/p' \
+	~/.keychain/${HOSTNAME}-csh > \
+	~/.keychain/${HOSTNAME}.el
 }
 
 
@@ -470,3 +492,42 @@ function test-mic()
 {
     arecord -vv -f dat /dev/null
 }
+
+function v-json()
+{
+    python -m json.tool "$1" | pygmentize -l json | less
+}
+
+function humanize-json()
+{
+    python -m json.tool "$1"
+}
+
+function ws-save()
+{
+    save_dir=/tmp/$USER/ws-save
+    /usr/bin/mkdir -p $save_dir
+    workspace-save-layout > $save_dir/ws-layout-$(date +%F-%H-%M-%S)${1:+-}${1:-}
+}
+
+function ws-restore()
+{
+    save_dir=/tmp/$USER/ws-save
+    unset -v latest
+    for file in "$save_dir"/*"${1:-}"; do
+	[[ $file -nt $latest ]] && latest=$file
+    done
+
+    [[ -n $latest ]] && . $latest
+}
+
+function ws-list()
+{
+    save_dir=/tmp/$USER/ws-save
+    unset -v latest
+    for file in "$save_dir"/*"${1:-}"; do
+	echo $file
+    done
+}
+
+    

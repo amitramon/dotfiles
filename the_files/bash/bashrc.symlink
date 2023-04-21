@@ -23,6 +23,9 @@ elif [ -x /usr/bin/lesspipe.sh ]; then
     eval "$(lesspipe.sh)"
 fi
 
+# This conflicts with git log
+# export LESS=N
+
 if [ -t 0 ]; then       # check for a terminal, per https://wiki.debian.org/DotFiles
     # disable flow control (Control-S/Control-Q)
     # the redirection prevents some error messages
@@ -88,7 +91,13 @@ xterm*|rxvt*|mlterm*)
 esac
 
 # increase font size for qt applications
-export QT_DEVICE_PIXEL_RATIO=2
+# Deprecated:
+# export QT_DEVICE_PIXEL_RATIO=2
+
+# QT_AUTO_SCREEN_SCALE_FACTOR to enable platform plugin controlled
+# per-screen factors.
+# QT_SCREEN_SCALE_FACTORS to set per-screen factors.
+# QT_SCALE_FACTOR to set the application global scale factor.
 
 # Setup history environment variables.
 # HISTFILE=~/.history/history.$HOSTNAME
@@ -101,9 +110,9 @@ shopt -s histappend
 
 GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
-export MAILCHECK PATH GREP_COLORS
-export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
-export LINES COLUMNS
+
+# May be neede for R
+PKG_CONFIG_PATH=/home/amit/R/x86_64-pc-linux-gnu-library/3.6/pkgconfig
 
 # source optional settings
 if [ -d ~/.bashrc.d ]; then
@@ -122,3 +131,8 @@ if [ -r $personal_rc ]; then
     . $personal_rc
 fi
 
+export MAILCHECK PATH GREP_COLORS
+export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
+export LINES COLUMNS
+
+complete -C '/usr/local/bin/aws_completer' aws

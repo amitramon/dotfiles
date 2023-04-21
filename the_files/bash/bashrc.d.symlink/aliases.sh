@@ -73,7 +73,7 @@ alias wttr-nt='curl wttr.in/netanya'
 
 case "$OSTYPE" in
     linux*)
-	alias df='df -hT -x tmpfs -x devtmpfs'
+	alias df='df -hT -x tmpfs -x devtmpfs -x nfs4'
 	;;
     darwin*)
 	alias df='df -P -h -T hfs,apfs,exfat,ntfs'
@@ -81,3 +81,4 @@ case "$OSTYPE" in
 esac
 
 
+alias lsblk2='lsblk -o type,name,label,partlabel,size,fstype,model,serial,wwn,uuid'

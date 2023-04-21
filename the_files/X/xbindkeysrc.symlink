@@ -55,6 +55,9 @@
 "set-lang -l 5"
     F12
 
+"set-lang -l 1"
+    F11
+
 "volume_set mute"
     XF86AudioMute
 

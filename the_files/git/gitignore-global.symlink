@@ -3,6 +3,9 @@
 *.lock
 *.log
 
+# use such a directory in any project for keeping test and transient stuff
+amit-sandbox/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -60,3 +63,7 @@ docs/_build/
 # Compiled emacs lisp
 *.elc
 
+# R development
+# *.Rd
+*.o
+# NAMES

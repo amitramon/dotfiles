@@ -6,8 +6,10 @@
 
 # use specified style
 COMMON_OPT='-f 256 -O encoding=utf-8,style=emacs'
+# COMMON_OPT='-f 256 -O encoding=utf-8'
 SHELL_PATTERN='#![[:space:]]*/bin/.*sh|#![[:space:]]*/usr/bin/env[[:space:]]+.*sh|#.*mode:[[:space:]]*shell-script'
 PYTHON_PATTERN='#![[:space:]]*/usr/.*python'
+PYTHON=python3
 
 case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
     # extensions not register with pygmentize, so explicitly state
@@ -16,13 +18,22 @@ case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
 	pygmentize $COMMON_OPT -l Clojure "$1";;
     *.r|*.rhistory|*.rprofile|*.renviron)
 	pygmentize $COMMON_OPT -l S "$1";;
+    *.rmd)
+	pygmentize $COMMON_OPT -l md "$1";;
+    *.r)
+	pygmentize $COMMON_OPT -l r "$1";;
+    *.json|*.geojson)
+	    $PYTHON -m json.tool "$1" | pygmentize $COMMON_OPT -l json;;
+    *.json.gz|*.geojson.gz)
+	    zcat "$1" | $PYTHON -m json.tool | pygmentize $COMMON_OPT -l json;;
     # add all extensions you want to handle here
-    *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
+    *.awk|*.groff|*.java|*.js|*.ts|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
     *.ad[asb]|*.tex|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
     *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
     *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass|\
     *.html|*.htm|*.shtml|*.ssi|*.css|*.el|*.lisp|*.clj*|*.lua|*.json|\
-    *.r|*.s)
+    *.r|*.s| \
+    *.vert|*.frag|*.glsl|*.geom|*.md|*.r|*.rmd|*.yml|*.yaml|*.proto)
 	pygmentize $COMMON_OPT "$1" ;;
     # all others - test for specific cases based on content
     *)

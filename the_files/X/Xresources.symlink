@@ -40,6 +40,16 @@
 ! #define S_base2         #073642
 ! #define S_base3         #002b36
 
+#define S_base03_light        #fdf6e3
+#define S_base02_light        #eee8d5
+#define S_base01_light        #93a1a1
+#define S_base00_light        #839496
+#define S_base0_light         #657b83
+#define S_base1_light         #586e75
+#define S_base2_light         #073642
+#define S_base3_light         #002b36
+
+
 ! Note: to only apply colors to your terminal, for example, prefix
 ! the color assignment statement with its name. Example:
 !
@@ -261,7 +271,8 @@ Emacs*cursorColor: Yellow
 Emacs*geometry: 90x45+50+10
 !emacs*font: 9x15
 !Emacs*font: -DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1
-Emacs.font:  Lucida Sans Typewriter-10
+!Emacs.font:  Lucida Sans Typewriter-10
+Emacs.font: Fira Code Retina-11
 ! good for Hebrew and Arabic
 !emacs*font: -gnu-unifont-medium-r-normal--*-iso10646-1
 
@@ -280,6 +291,16 @@ Emacs*menubar*font: 9x15
 Emacs.menuBar: off
 Emacs.verticalScrollBars: off
 Emacs.toolBar: off
+
+
+
+! R data.entry and View
+! InputOutput*font: 9x15
+R_dataentry*background: S_base03
+R_dataentry*foreground: S_base0
+R_dataentry*font: 9x15
+! R_dataentry*background: Gray15
+! R_dataentry*foreground: Wheat
 
 
 
