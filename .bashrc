@@ -1,0 +1,132 @@
+# -*- mode: bash-mode -*-
+
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# Files you make look like rw-r-r
+umask 0022
+
+# Don't make useless coredump files.  If you want a coredump,
+# say "ulimit -c unlimited" and then cause a segmentation fault.
+ulimit -Sc 0
+
+# If not running interactively, then return
+if [ -z "$PS1" ]; then
+	return
+fi
+
+# help less display various binary files
+if [ -x /usr/bin/lesspipe ]; then
+    eval "$(lesspipe)"
+elif [ -x /usr/bin/lesspipe.sh ]; then
+    eval "$(lesspipe.sh)"
+fi
+
+# This conflicts with git log
+# export LESS=N
+
+if [ -t 0 ]; then       # check for a terminal, per https://wiki.debian.org/DotFiles
+    # disable flow control (Control-S/Control-Q)
+    # the redirection prevents some error messages
+    # when logging via ssh.
+    stty start '^-' 2>/dev/null
+    stty stop '^-' 2>/dev/null
+fi
+
+# Set ignoreeof if you don't want EOF as the sole input to the shell to
+# immediately signal a quit condition.  This only happens at the start
+# of a line if the line is empty, and you haven't just deleted a character
+# with C-d.  I turn this on in ~/.bash_profile so that only login shells
+# have the right to be obnoxious.
+# set -o ignoreeof
+
+# Set auto_resume if you want to resume on "emacs", as well as on
+# "%emacs".
+auto_resume=exact
+
+# Set notify if you want to be asynchronously notified about background
+# job completion.
+set -o notify
+
+set -o noclobber
+
+# Make it so that failed `exec' commands don't flush this shell.
+shopt -s execfail
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+#shopt -s checkwinsize
+# required to allow cd completion of environment variables
+shopt -s cdable_vars
+
+# enable color support of ls and also add handy aliases
+if [[ $TERM != "dumb" ]]; then
+    case "$OSTYPE" in
+	linux*)
+	    if [[ -r ~/.dircolors ]]; then
+		eval $(dircolors -b ~/.dircolors)
+	    else
+		eval $(dircolors -b)
+	    fi
+	    alias ls='ls --color=auto'
+	    ;;
+	darwin*)
+	    export CLICOLOR=1
+	    ;;
+    esac
+fi
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*|mlterm*)
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+    ;;
+*)
+    ;;
+esac
+
+# Setup history environment variables.
+HISTCONTROL="ignoreboth:erasedups"
+HISTSIZE=4000
+HISTFILESIZE=4000
+HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
+HISTTIMEFORMAT="%F %T "
+shopt -s histappend
+
+GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+
+# source optional settings
+if [ -d ~/.bashrc.d ]; then
+  for i in ~/.bashrc.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+# load per host-user settings; this allows for sharing .bashrc between
+# user and hosts more easily
+personal_rc=~/.bashrc.d/${HOSTNAME}-${USER}.rc
+if [ -r $personal_rc ]; then
+    . $personal_rc
+fi
+
+export MAILCHECK PATH GREP_COLORS
+export HISTCONTROL HISTSIZE HISTFILESIZE HISTIGNORE HISTTIMEFORMAT # HISTFILE
+export LINES COLUMNS
+
+# Set completion for AWS CLI
+# complete -C '/usr/local/bin/aws_completer' aws
+# Require github api, add support for copilot
+# eval "$(gh copilot alias -- bash)"
+
+# https://wiki.archlinux.org/title/Dotfiles
+. /usr/share/bash-completion/completions/git
+__git_complete dotfiles __git_main
+__git_complete dtf __git_main
