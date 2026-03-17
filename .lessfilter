@@ -11,9 +11,7 @@ SHELL_PATTERN='#![[:space:]]*/bin/.*sh|#![[:space:]]*/usr/bin/env[[:space:]]+.*s
 PYTHON_PATTERN='#![[:space:]]*/usr/.*python'
 PYTHON=python3
 
-# echo "$1" | tr '[:upper:]' '[:lower:]' >|/tmp/amit
-
-case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
+case $(basename "$1" | tr '[:upper:]' '[:lower:]') in
     # extensions not register with pygmentize, so explicitly state
     # lexers
     *.cljc|*.edn)
