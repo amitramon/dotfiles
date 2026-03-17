@@ -127,7 +127,25 @@ export LINES COLUMNS
 # Require github api, add support for copilot
 # eval "$(gh copilot alias -- bash)"
 
+case "$OSTYPE" in
+    linux*)
+	. /usr/share/bash-completion/completions/git
+	;;
+    darwin*)
+	export HOMEBREW_PREFIX="/opt/homebrew";
+	export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+	export HOMEBREW_REPOSITORY="/opt/homebrew";
+	eval \
+	    "$(/usr/bin/env PATH_HELPER_ROOT="/opt/homebrew" /usr/libexec/path_helper -s)"
+	[ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
+	export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	    . $(brew --prefix)/etc/bash_completion
+	fi
+	;;
+esac
+
 # https://wiki.archlinux.org/title/Dotfiles
+# set alias with bash completions
 alias dtf='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
-. /usr/share/bash-completion/completions/git
 __git_complete dtf __git_main

@@ -3,7 +3,7 @@
 add_to_path()
 {
     if [ -d "$1" ] ; then
-	if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+	if ! echo $PATH | /usr/bin/egrep -q "(^|:)$1($|:)" ; then
 	    if [ "$2" = "last" ] ; then
 		PATH=$PATH:$1
 	    else
