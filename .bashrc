@@ -98,7 +98,8 @@ HISTIGNORE="&:ls:lf:l:la:[bf]g:exit:c:a:e:x:h:r:pd"
 HISTTIMEFORMAT="%F %T "
 shopt -s histappend
 
-GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
+# Default is good enough
+# GREP_COLORS='ms=01;33:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
 
 # source optional settings
 if [ -d ~/.bashrc.d ]; then
@@ -127,6 +128,6 @@ export LINES COLUMNS
 # eval "$(gh copilot alias -- bash)"
 
 # https://wiki.archlinux.org/title/Dotfiles
+alias dtf='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 . /usr/share/bash-completion/completions/git
-__git_complete dotfiles __git_main
 __git_complete dtf __git_main

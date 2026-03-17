@@ -62,6 +62,3 @@ alias dcps='docker compose ps'
 alias dclogs='docker compose logs -f'
 alias dcrestart='docker compose restart'
 alias dcbuild='docker compose build'
-
-alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
-alias dtf='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
